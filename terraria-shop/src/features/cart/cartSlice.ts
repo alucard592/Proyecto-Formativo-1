@@ -18,8 +18,11 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action: PayloadAction<Product>) {
       const existing = state.items.find((i) => i.id === action.payload.id)
-      if (existing) { existing.quantity += 1 }
-      else { state.items.push({ ...action.payload, quantity: 1 }) }
+      if (existing) {
+        existing.quantity += 1
+      } else {
+        state.items.push({ ...action.payload, quantity: 1 })
+      }
     },
     removeFromCart(state, action: PayloadAction<number>) {
       state.items = state.items.filter((i) => i.id !== action.payload)
@@ -31,54 +34,16 @@ const cartSlice = createSlice({
     decreaseQty(state, action: PayloadAction<number>) {
       const item = state.items.find((i) => i.id === action.payload)
       if (item) {
-        if (item.quantity === 1) { state.items = state.items.filter((i) => i.id !== action.payload) }
-        else { item.quantity -= 1 }
+        if (item.quantity === 1) {
+          state.items = state.items.filter((i) => i.id !== action.payload)
+        } else {
+          item.quantity -= 1
+        }
       }
     },
-    clearCart(state) { state.items = [] },
-  },
-})
-
-export const { addToCart, removeFromCart
-cat > src/features/cart/cartSlice.ts << 'EOF'
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Product } from '../products/productsSlice'
-
-export interface CartItem extends Product {
-  quantity: number
-}
-
-interface CartState {
-  items: CartItem[]
-}
-
-const initialState: CartState = { items: [] }
-
-const cartSlice = createSlice({
-  name: 'cart',
-  initialState,
-  reducers: {
-    addToCart(state, action: PayloadAction<Product>) {
-      const existing = state.items.find((i) => i.id === action.payload.id)
-      if (existing) { existing.quantity += 1 }
-      else { state.items.push({ ...action.payload, quantity: 1 }) }
+    clearCart(state) {
+      state.items = []
     },
-    removeFromCart(state, action: PayloadAction<number>) {
-      state.items = state.items.filter((i) => i.id !== action.payload)
-    },
-    increaseQty(state, action: PayloadAction<number>) {
-      const item = state.items.find((i) => i.id === action.payload)
-      if (item) item.quantity += 1
-    },
-    decreaseQty(state, action: PayloadAction<number>) {
-      const item = state.items.find((i) => i.id === action.payload)
-      if (item) {
-        if (item.quantity === 1) { state.items = state.items.filter((i) => i.id !== action.payload) }
-        else { item.quantity -= 1 }
-      }
-    },
-    clearCart(state) { state.items = [] },
   },
 })
 
