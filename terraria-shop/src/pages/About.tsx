@@ -23,6 +23,7 @@ export default function About() {
         <div className="about-card">
           <h3>📦 Estado Global</h3>
           <p>El carrito, el tema oscuro y el catálogo de productos están manejados con Redux, accesibles desde cualquier ruta.</p>
+          <p>Versión 1</p>
         </div>
       </div>
     </div>
